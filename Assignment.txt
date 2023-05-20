@@ -1,0 +1,106 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class PascalTriangle{
+
+    static Map<String, Integer> memo = new HashMap<>();
+
+    public static void main(String[] args) {
+
+	   int n = 5;
+        int[][] arr = new int[n][n];
+        arr[0][0] = 1;
+        arr[1][0] = 1;
+        arr[1][1] = 1;
+
+        iterative(n,arr);
+	   display(n,arr);
+
+
+
+	   int[][] arr1 = new int[n][n];
+        arr1[0][0] = 1;
+        arr1[1][0] = 1;
+        arr1[1][1] = 1;
+
+        recursive(n,arr1,2,0);
+        display(n,arr);
+
+
+
+	   int[][] arr2 = new int[n][n];
+        arr2[0][0] = 1;
+        arr2[1][0] = 1;
+        arr2[1][1] = 1;
+
+        memoization(n,arr1,2,0);
+        display(n,arr);
+
+    }
+    public static void iterative(int n,int[][] arr){
+        int i = 2;
+        while(i<n){
+            arr[i][0] = 1;
+            arr[i][i] = 1;
+            for(int j = 1;j<i;j++) {
+                arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j];
+            }
+            i++;
+        }
+    }
+
+    public static void recursive(int n, int[][] arr, int ro, int co) {
+        if(ro==n){
+            return;
+        }
+        else if(co==0){
+            arr[ro][co] = 1;
+            recursive(n,arr,ro,co+1);
+        }
+        else if(co==ro){
+            arr[ro][co] = 1;
+            recursive(n,arr,ro+1,0);
+        }
+        else{
+            arr[ro][co] = arr[ro-1][co-1] + arr[ro-1][co];
+            recursive(n,arr,ro,co+1);
+        }
+    }
+
+
+	public static void memoization(int n, int[][] arr, int ro, int co) {
+        if (ro == n) {
+            return;
+        } else if (co == 0) {
+            arr[ro][co] = 1;
+        } else if (co == ro) {
+            arr[ro][co] = 1;
+        } else {
+            String key = ro + "-" + co;
+            if (memo.containsKey(key)) {
+                arr[ro][co] = memo.get(key);
+            } else {
+                int val = memoization(n, arr, ro - 1, co - 1) +
+                            memoization(n, arr, ro - 1, co);
+                arr[ro][co] = val;
+                memo.put(key, val);
+            }
+        }
+        if (co == ro) {
+            memoization(n, arr, ro + 1, 0);
+        } 
+	   else {
+            memoization(n, arr, ro, co + 1);
+        }
+    }
+
+
+    public static void display(int n,int[][] arr){
+        for(int i = 0;i<n;i++){
+            for(int j = 0;j<=i;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+}
