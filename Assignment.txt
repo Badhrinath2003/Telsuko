@@ -7,18 +7,18 @@ public class PascalTriangle{
 
     public static void main(String[] args) {
 
-	   int n = 5;
+	int n = 5;
         int[][] arr = new int[n][n];
         arr[0][0] = 1;
         arr[1][0] = 1;
         arr[1][1] = 1;
 
         iterative(n,arr);
-	   display(n,arr);
+	display(n,arr);
 
 
 
-	   int[][] arr1 = new int[n][n];
+	int[][] arr1 = new int[n][n];
         arr1[0][0] = 1;
         arr1[1][0] = 1;
         arr1[1][1] = 1;
@@ -28,7 +28,7 @@ public class PascalTriangle{
 
 
 
-	   int[][] arr2 = new int[n][n];
+	int[][] arr2 = new int[n][n];
         arr2[0][0] = 1;
         arr2[1][0] = 1;
         arr2[1][1] = 1;
@@ -37,6 +37,8 @@ public class PascalTriangle{
         display(n,arr);
 
     }
+    
+    
     public static void iterative(int n,int[][] arr){
         int i = 2;
         while(i<n){
@@ -67,8 +69,7 @@ public class PascalTriangle{
         }
     }
 
-
-	public static void memoization(int n, int[][] arr, int ro, int co) {
+    public static void memoization(int n, int[][] arr, int ro, int co) {
         if (ro == n) {
             return;
         } else if (co == 0) {
